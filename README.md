@@ -9,10 +9,22 @@ The example uses a few Pulumi features:
  - [Policy as Code ("CrossGuard")
 ](https://www.pulumi.com/docs/guides/crossguard/) to ensure `additionalSecretOutputs` is set correctly
 
-## Usage
+## Usage (Local Policy Enforcement)
 
 ```
 pulumi stack init
 pulumi config set clusterPassword --secret
 pulumi up --policy-pack policy-as-code
+```
+
+## Usage (Server-Side Policy Enforcement)
+
+```
+pulumi stack init
+pulumi config set clusterPassword --secret
+cd policy-as-code
+pulumi policy publish <org>
+pulumi policy enable aws-typescript latest
+cd ..
+pulumi up
 ```
